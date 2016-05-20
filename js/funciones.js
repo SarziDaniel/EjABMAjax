@@ -65,16 +65,15 @@ var id;
 var usuario;
 var clave;
 
-if(usuario!=null){
-
-	$("#nombre").val(usuario.Nombre);
-	$("#clave").val(usuario.Clave);
-}
-else{
-	alert("papapapapa");
+if(usuario=="NULL"){
 	usuario.id=null;
 	usuario.nombre=$("#nombre").val(usuario.Nombre);
 	usuario.clave=$("#clave").val(usuario.Clave);
+	usuario=json_encode(usuario);
+}
+else{
+	$("#nombre").val(usuario.Nombre);
+	$("#clave").val(usuario.Clave);
 }
 
 $.ajax({

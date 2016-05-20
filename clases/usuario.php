@@ -32,9 +32,12 @@ class usuario
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
 				update usuario 
-				set Nombre='$usu->Nombre',
-				Clave='$usu->Clave',
-				WHERE id='$usu->id'");
+				set nombre=:nom,
+				clave=:cla
+				WHERE id=:id");
+			$consulta->bindValue(':id',$usu->id, PDO::PARAM_INT);
+			$consulta->bindValue(':nom',$usu->Nombre, PDO::PARAM_STR);
+			$consulta->bindValue(':cla',$usu->Clave, PDO::PARAM_STR);
 			return $consulta->execute();
 
 	 }
@@ -47,13 +50,15 @@ class usuario
 			return $consulta->fetchAll(PDO::FETCH_CLASS, "usuario");		
 	}
 
-	public function Agregar()
+	public function Agregar($nom, $cla)
 	 {
 
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
 				insert into usuario ('nombre', 'clave')
-				values ('$this->nombre', '$this->clave'");
+				values (:nom, :cla)");
+			$consulta->bindValue(':nom',$nom, PDO::PARAM_STR);
+			$consulta->bindValue(':cla',$cla, PDO::PARAM_STR);
 			return $consulta->execute();
 
 	 }

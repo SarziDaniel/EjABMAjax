@@ -79,28 +79,28 @@ switch($queHago){
 	case "modificar":
 		$retorno["Exito"] = TRUE;
 		$retorno["Mensaje"] = "";
-		$flag=TRUE;
 
 		$obj = isset($_POST['usuario']) ? json_decode(json_encode($_POST['usuario'])) : NULL;
 		
 		$arraysDeUsuario =usuario::TraerTodosLosUsuarios();
 
-		if($obj->id=NULL){
+		if($obj->id=="NULL"){
 			foreach ($arraysDeUsuario as $usu){
-				$usuario = json_encode($usu);
-				if($usuario->Nombre=$obj->Nombre){
+				
+				if($usu->Nombre==$obj->Nombre){
 					$retorno["Exito"]=FALSE;
 					$retorno["Mensaje"]="El usuario ya existe";		
 				}
 				else{
+					usuario::Agregar($obj->Nombre, $obj->Clave);
 					$retorno["Mensaje"] = "Usuario dado de alta!";
 				}
 			}
 		}
 		else{
 			foreach ($arraysDeUsuario as $usu){
-				$usuario = json_encode($usu);
-				if($usuario->id=$obj->id){
+				
+				if($usu->id==$obj->id){
 					
 					if(!usuario::Modificar($obj)){
 						$retorno["Exito"] = FALSE;
@@ -112,8 +112,6 @@ switch($queHago){
 				}
 			}
 		}
-		var_dump($retorno);
-		die();
 		echo json_encode($retorno);
 		
 		break;
