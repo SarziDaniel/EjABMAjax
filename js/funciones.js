@@ -20,6 +20,27 @@ function MostrarGrilla(){
     .fail(function (jqXHR, textStatus, errorThrown) {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     });
+}
+
+function Datos(usuario){
+	
+    var pagina = "./clases/nexo.php";
+    
+    alert(usuario);
+    $.ajax({
+    	type: 'POST',
+    	url: pagina,
+    	data: {queHago: "datos",
+    	usuario: usuario},
+    	dataType: 'json'
+    })
+    .done(function(datosrespuesta){
+    	alert(datosrespuesta.Mensaje);
+    	$("#registro").html(datosrespuesta.Mensaje);
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
+    });
  
 }
 
@@ -62,19 +83,22 @@ function Modificar(usuario){
 
 var pagina = "./clases/nexo.php";
 var id;
-var usuario;
+var nombre;
 var clave;
+var us={};
 
 if(usuario=="NULL"){
-	usuario.id=null;
-	usuario.nombre=$("#nombre").val(usuario.Nombre);
-	usuario.clave=$("#clave").val(usuario.Clave);
-	usuario=json_encode(usuario);
+	us.id=null;
+	us.Nombre=$("#nombre").val(usuario.Nombre);
+	us.Clave=$("#clave").val(usuario.Clave);
+	usuario=json_encode(us);
 }
 else{
 	$("#nombre").val(usuario.Nombre);
 	$("#clave").val(usuario.Clave);
 }
+
+alert(usuario.Nombre);
 
 $.ajax({
         type: 'POST',
