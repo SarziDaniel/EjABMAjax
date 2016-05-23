@@ -36,8 +36,8 @@ class usuario
 				clave=:cla
 				WHERE id=:id");
 			$consulta->bindValue(':id',$usu->id, PDO::PARAM_INT);
-			$consulta->bindValue(':nom',$usu->Nombre, PDO::PARAM_STR);
-			$consulta->bindValue(':cla',$usu->Clave, PDO::PARAM_STR);
+			$consulta->bindValue(':nom',$usu->Nombre, PDO::PARAM_STR, 50);
+			$consulta->bindValue(':cla',$usu->Clave, PDO::PARAM_STR, 50);
 			return $consulta->execute();
 
 	 }
@@ -45,18 +45,17 @@ class usuario
   	public static function TraerTodosLosUsuarios()
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-			$consulta =$objetoAccesoDato->RetornarConsulta("select id,nombre as Nombre, clave as Clave from usuario");
+			$consulta =$objetoAccesoDato->RetornarConsulta("select id as ID,nombre as Nombre, clave as Clave from usuario");
 			$consulta->execute();			
 			return $consulta->fetchAll(PDO::FETCH_CLASS, "usuario");		
 	}
 
 	public function Agregar($nom, $cla)
 	 {
-
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
-				insert into usuario ('nombre', 'clave')
-				values (:nom, :cla)");
+				insert into usuario (nombre, clave)
+				values (:nom , :cla)");
 			$consulta->bindValue(':nom',$nom, PDO::PARAM_STR);
 			$consulta->bindValue(':cla',$cla, PDO::PARAM_STR);
 			return $consulta->execute();

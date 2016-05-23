@@ -22,28 +22,6 @@ function MostrarGrilla(){
     });
 }
 
-function Datos(usuario){
-	
-    var pagina = "./clases/nexo.php";
-    
-    alert(usuario);
-    $.ajax({
-    	type: 'POST',
-    	url: pagina,
-    	data: {queHago: "datos",
-    	usuario: usuario},
-    	dataType: 'json'
-    })
-    .done(function(datosrespuesta){
-    	alert(datosrespuesta.Mensaje);
-    	$("#registro").html(datosrespuesta.Mensaje);
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
-        alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
-    });
- 
-}
-
 function Borrar(usuario){
 
 if(!confirm("Desea ELIMINAR el Usuario "+usuario.Nombre+"??")){
@@ -51,6 +29,7 @@ if(!confirm("Desea ELIMINAR el Usuario "+usuario.Nombre+"??")){
 }
 
 var pagina = "./clases/nexo.php";
+
 
 $.ajax({
         type: 'POST',
@@ -79,26 +58,16 @@ $.ajax({
 	
 }
 
-function Modificar(usuario){
+function Modificar(){
 
 var pagina = "./clases/nexo.php";
-var id;
-var nombre;
-var clave;
-var us={};
 
-if(usuario=="NULL"){
-	us.id=null;
-	us.Nombre=$("#nombre").val(usuario.Nombre);
-	us.Clave=$("#clave").val(usuario.Clave);
-	usuario=json_encode(us);
-}
-else{
-	$("#nombre").val(usuario.Nombre);
-	$("#clave").val(usuario.Clave);
-}
 
-alert(usuario.Nombre);
+var nombre=document.getElementById("nombre").value
+var clave=document.getElementById("clave").value
+var id="NULL"
+
+var usuario={id, nombre, clave}
 
 $.ajax({
         type: 'POST',
@@ -111,7 +80,7 @@ $.ajax({
         async: true
     })
 	.done(function (objJson) {
-		
+
 		if(!objJson.Exito){
 			alert(objJson.Mensaje);
 			return;
