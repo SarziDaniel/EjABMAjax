@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	
 	MostrarGrilla();
-
 });
 
 function MostrarGrilla(){
@@ -21,6 +20,8 @@ function MostrarGrilla(){
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     });
 }
+
+
 
 function Borrar(usuario){
 
@@ -57,6 +58,7 @@ $.ajax({
     });    
 	
 }
+
 
 function Modificar(){
 

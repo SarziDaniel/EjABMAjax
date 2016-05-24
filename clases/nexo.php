@@ -26,7 +26,7 @@ switch($queHago){
 			$usuario = json_encode($usu);
 
 			$grilla .= "<tr>
-	                        <td> <a class='btn btn-warning' href='registro.html'>Modificar</a></td>
+	                        <td> <a class='btn btn-warning' onClick=Enviar() href='registro.html'>Modificar</a></td>
 	                        <td> <a class='btn btn-danger' onClick=Borrar($usuario)>Borrar</a></td>
 	                        <td>$usu->Nombre</td>
 	                        <td>$usu->Clave</td>
